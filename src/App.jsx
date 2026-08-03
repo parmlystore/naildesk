@@ -515,6 +515,22 @@ export default function NailDesk() {
   const [showAddExpense, setShowAddExpense] = useState(false);
   const [newIncome, setNewIncome] = useState({date:"",client:"",type:"",amount:"",method:"Card"});
   const [newExpense, setNewExpense] = useState({date:"",category:"rent",description:"",amount:""});
+  const [finFilterStart, setFinFilterStart] = useState("");
+  const [finFilterEnd, setFinFilterEnd] = useState("");
+  const filteredIncome = income.filter(r => (!finFilterStart || r.date >= finFilterStart) && (!finFilterEnd || r.date <= finFilterEnd));
+  const filteredExpenses = expenses.filter(r => (!finFilterStart || r.date >= finFilterStart) && (!finFilterEnd || r.date <= finFilterEnd));
+  function exportFinanceCSV(){
+    const rows = finTab==="income" ? filteredIncome : filteredExpenses;
+    const header = finTab==="income" ? ["Date","Client","Type","Amount","Method"] : ["Date","Category","Description","Amount"];
+    const body = rows.map(r => finTab==="income" ? [r.date,r.client,r.type,r.amount,r.method] : [r.date,r.category,r.description,r.amount]);
+    const csv = [header, ...body].map(row => row.map(cell => '"'+String(cell).replace(/"/g,'""')+'"').join(",")).join("\n");
+    const blob = new Blob([csv], {type:"text/csv"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = (finTab==="income"?"income":"expenses")+".csv";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 
   // Booking settings
   const [slotLength, setSlotLength] = useState(60);
