@@ -812,7 +812,14 @@ export default function NailDesk() {
       <div style={{display:"flex",gap:8,marginBottom:14}}>
         {["income","expenses"].map(ft=><button key={ft} onClick={()=>setFinTab(ft)} style={{flex:1,padding:9,borderRadius:9,border:"none",fontWeight:600,fontSize:12,cursor:"pointer",background:finTab===ft?C.pinkDark:C.pinkLight,color:finTab===ft?"#fff":C.pinkDark,textTransform:"capitalize"}}>{tr(ft==="income"?"tabIncome":"tabExpenses")}</button>)}
       </div>
-      {finTab==="income"&&(
+      <div style={{display:"flex",gap:8,alignItems:"center",marginBottom:14,flexWrap:"wrap"}}>
+        <input type="date" value={finFilterStart} onChange={e=>setFinFilterStart(e.target.value)} style={{fontSize:12,padding:"6px 8px",borderRadius:8,border:"1px solid #ddd"}}/>
+        <span style={{fontSize:11,color:C.sub}}>to</span>
+        <input type="date" value={finFilterEnd} onChange={e=>setFinFilterEnd(e.target.value)} style={{fontSize:12,padding:"6px 8px",borderRadius:8,border:"1px solid #ddd"}}/>
+        {(finFilterStart||finFilterEnd)&&<button onClick={()=>{setFinFilterStart("");setFinFilterEnd("");}} style={{...btnSm,backgroundColor:"#eee",color:"#333"}}>Clear</button>}
+        <button onClick={exportFinanceCSV} style={btnSm}>Export CSV</button>
+      </div>
+      {finTab==="income"
         <div style={card}>
           <div style={{display:"flex",justifyContent:"space-between",marginBottom:12}}><div style={stitle}>{tr("tabIncome")}</div><button onClick={()=>setShowAddIncome(true)} style={btnSm}>{tr("btnAdd")}</button></div>
           {income.map(item=>(
