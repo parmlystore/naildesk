@@ -822,7 +822,7 @@ export default function NailDesk() {
       {finTab==="income"
         <div style={card}>
           <div style={{display:"flex",justifyContent:"space-between",marginBottom:12}}><div style={stitle}>{tr("tabIncome")}</div><button onClick={()=>setShowAddIncome(true)} style={btnSm}>{tr("btnAdd")}</button></div>
-          {income.map(item=>(
+          {filteredIncome.map(item=>(
             <div key={item.id} style={row}><div><div style={{fontSize:13,fontWeight:500}}>{item.client}</div><div style={{fontSize:10,color:C.sub}}>{item.type} · {fmtDateLoc(item.date,lang)}</div></div><div style={{fontSize:14,fontWeight:700,color:C.green}}>${item.amount}</div></div>
           ))}
         </div>
@@ -830,7 +830,7 @@ export default function NailDesk() {
       {finTab==="expenses"&&(
         <div style={card}>
           <div style={{display:"flex",justifyContent:"space-between",marginBottom:12}}><div style={stitle}>{tr("tabExpenses")}</div><button onClick={()=>setShowAddExpense(true)} style={btnSm}>{tr("btnAdd")}</button></div>
-          {expenses.map(item=>{const cat=EXPENSE_CATS.find(c=>c.key===item.category);return(<div key={item.id} style={row}><div style={{display:"flex",gap:8}}><span style={{fontSize:16}}>{cat?.icon}</span><div><div style={{fontSize:13,fontWeight:500}}>{item.description}</div><div style={{fontSize:10,color:C.sub}}>{fmtDateLoc(item.date,lang)}</div></div></div><div style={{fontSize:14,fontWeight:700,color:C.amber}}>${item.amount}</div></div>);})}
+          {filteredExpenses.map(item=>{const cat=EXPENSE_CATS.find(c=>c.key===item.category);return(<div key={item.id} style={row}><div style={{display:"flex",gap:8}}><span style={{fontSize:16}}>{cat?.icon}</span><div><div style={{fontSize:13,fontWeight:500}}>{item.description}</div><div style={{fontSize:10,color:C.sub}}>{fmtDateLoc(item.date,lang)}</div></div></div><div style={{fontSize:14,fontWeight:700,color:C.amber}}>${item.amount}</div></div>);})}
         </div>
       )}
       {showAddIncome&&(
