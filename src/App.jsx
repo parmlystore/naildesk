@@ -819,7 +819,7 @@ export default function NailDesk() {
         {(finFilterStart||finFilterEnd)&&<button onClick={()=>{setFinFilterStart("");setFinFilterEnd("");}} style={{...btnSm,backgroundColor:"#eee",color:"#333"}}>Clear</button>}
         <button onClick={exportFinanceCSV} style={btnSm}>Export CSV</button>
       </div>
-      {finTab==="income"
+      {finTab==="income"&&(
         <div style={card}>
           <div style={{display:"flex",justifyContent:"space-between",marginBottom:12}}><div style={stitle}>{tr("tabIncome")}</div><button onClick={()=>setShowAddIncome(true)} style={btnSm}>{tr("btnAdd")}</button></div>
           {filteredIncome.map(item=>(
