@@ -102,6 +102,7 @@ const TR = {
     lblEmail:"Email", lblDob:"Date of birth", lblClientSince:"Client since", labelNotesHeader:"⚠ NOTES",
     titleNewClient:"New Client", lblFullName:"Full Name", lblNotes:"Notes", btnAddClient:"Add Client",
     tabIncome:"Income", tabExpenses:"Expenses",
+    exportCsv:"Export CSV", clearFilter:"Clear", filterTo:"to",
     titleRecordIncome:"Record Income", lblDate:"Date", lblClient:"Client", lblType:"Type", lblAmount:"Amount ($)",
     lblMethod:"Method", optionSelect:"Select", btnSave:"Save",
     titleRecordExpense:"Record Expense", lblCategory:"Category", lblDescription:"Description",
