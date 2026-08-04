@@ -184,6 +184,7 @@ const TR = {
     lblEmail:"邮箱", lblDob:"出生日期", lblClientSince:"建档日期", labelNotesHeader:"⚠ 备注",
     titleNewClient:"新增客户", lblFullName:"姓名", lblNotes:"备注", btnAddClient:"添加客户",
     tabIncome:"收入", tabExpenses:"支出",
+    exportCsv:"导出CSV", clearFilter:"清除", filterTo:"至",
     titleRecordIncome:"记录收入", lblDate:"日期", lblClient:"客户", lblType:"类型", lblAmount:"金额 ($)",
     lblMethod:"付款方式", optionSelect:"请选择", btnSave:"保存",
     titleRecordExpense:"记录支出", lblCategory:"类别", lblDescription:"描述",
