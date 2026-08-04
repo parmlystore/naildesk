@@ -816,10 +816,10 @@ export default function NailDesk() {
       </div>
       <div style={{display:"flex",gap:8,alignItems:"center",marginBottom:14,flexWrap:"wrap"}}>
         <input type="date" value={finFilterStart} onChange={e=>setFinFilterStart(e.target.value)} style={{fontSize:12,padding:"6px 8px",borderRadius:8,border:"1px solid #ddd"}}/>
-        <span style={{fontSize:11,color:C.sub}}>to</span>
+        <span style={{fontSize:11,color:C.sub}}>{tr("filterTo")}</span>
         <input type="date" value={finFilterEnd} onChange={e=>setFinFilterEnd(e.target.value)} style={{fontSize:12,padding:"6px 8px",borderRadius:8,border:"1px solid #ddd"}}/>
-        {(finFilterStart||finFilterEnd)&&<button onClick={()=>{setFinFilterStart("");setFinFilterEnd("");}} style={{...btnSm,backgroundColor:"#eee",color:"#333"}}>Clear</button>}
-        <button onClick={exportFinanceCSV} style={btnSm}>Export CSV</button>
+        {(finFilterStart||finFilterEnd)&&<button onClick={()=>{setFinFilterStart("");setFinFilterEnd("");}} style={{...btnSm,backgroundColor:"#eee",color:"#333"}}>{tr("clearFilter")}</button>}
+        <button onClick={exportFinanceCSV} style={btnSm}>{tr("exportCsv")}</button>
       </div>
       {finTab==="income"&&(
         <div style={card}>
