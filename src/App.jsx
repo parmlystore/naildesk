@@ -904,7 +904,7 @@ export default function NailDesk() {
           <input style={{...inp,flex:1}} placeholder={tr("placeholderTodo")} value={newTodo} onChange={e=>setNewTodo(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&newTodo.trim()){setTodos([...todos,{id:Date.now(),text:newTodo.trim(),done:false}]);setNewTodo("");}}}/>
           <button style={btnSm} onClick={()=>{if(newTodo.trim()){setTodos([...todos,{id:Date.now(),text:newTodo.trim(),done:false}]);setNewTodo("");}}} >+</button>
         </div>
-        {todos.map(t=>(
+        {[...todos].sort((a,b)=>(a.done===b.done?0:a.done?1:-1)).map(t=>(
           <div key={t.id} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 0",borderBottom:`1px solid ${C.border}`}}>
             <div style={chk(t.done)} onClick={()=>setTodos(todos.map(td=>td.id===t.id?{...td,done:!td.done}:td))}>{t.done&&<span style={{color:"#fff",fontSize:9}}>✓</span>}</div>
             <div style={{flex:1,fontSize:13,color:t.done?C.mute:C.text,textDecoration:t.done?"line-through":"none"}}>{t.text}</div>
