@@ -500,7 +500,7 @@ export default function NailDesk() {
   const [newStock, setNewStock] = useState({name:"",qty:"",reorder:"",unit:"pcs"});
 
   // Appointments state
-  const [selDate, setSelDate] = useState("2026-07-01");
+  const [selDate, setSelDate] = useState(todayStr());
   const [selAppt, setSelAppt] = useState(null);
   const [showAddAppt, setShowAddAppt] = useState(false);
   const [newAppt, setNewAppt] = useState({time:"09:00",service:"Gel Manicure",client:"",phone:""});
