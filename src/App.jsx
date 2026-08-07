@@ -897,9 +897,9 @@ export default function NailDesk() {
   );
 
   // ── STOCK & TODO ──────────────────────────────────────────────────
-  const renderStock = () => (
+  const renderTodo = () => (
     <div>
-      <TopBar title={tr("titleStock")}/>
+      <TopBar title={tr("titleTodo")}/>
       <div style={card}>
         <div style={stitle}>{tr("stitleTodo")}</div>
         <div style={{display:"flex",gap:8,marginBottom:12}}>
@@ -914,6 +914,13 @@ export default function NailDesk() {
           </div>
         ))}
       </div>
+      
+      </div>
+  );
+
+  const renderStock = () => (
+    <div>
+      <TopBar title={tr("titleStock")}/>
       <div style={card}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
           <div style={stitle}>{tr("stitleStock")}</div>
