@@ -7,6 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: null,
       manifest: {
         name: 'NailDesk',
         short_name: 'NailDesk',
