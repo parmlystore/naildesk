@@ -1250,7 +1250,7 @@ export default function NailDesk() {
 
   if (screen==="booking") {
     return (
-      <div style={{fontFamily:"'Inter',system-ui,sans-serif",maxWidth:520,margin:"0 auto"}}>
+      <div style={{fontFamily:"'Inter',system-ui,sans-serif",maxWidth:1400,margin:"0 auto"}}>
         <div style={{background:C.sidebar,padding:"6px 16px",textAlign:"center"}}>
           <span style={{fontSize:11,color:C.text,opacity:0.7}}>✦ <strong>{tr("demoBannerBrand")}</strong> — <a href="https://naildesk.shop" style={{color:C.pinkDark,textDecoration:"none",fontWeight:600}}>{tr("demoBannerGetOwn")}</a></span>
           {langToggle}
@@ -1264,7 +1264,7 @@ export default function NailDesk() {
   }
 
   return (
-    <div style={{display:"flex",flexDirection:"column",fontFamily:"'Inter',system-ui,sans-serif",background:C.bg,minHeight:"100vh",maxWidth:520,margin:"0 auto"}}>
+    <div style={{display:"flex",flexDirection:"column",fontFamily:"'Inter',system-ui,sans-serif",background:C.bg,minHeight:"100vh",maxWidth:1400,margin:"0 auto"}}>
       <div style={{background:C.sidebar,padding:"7px 16px",textAlign:"center",flexShrink:0}}>
         <span style={{fontSize:11,color:C.text,opacity:0.7}}>✦ <strong>{tr("demoBannerBrand")}</strong> — {tr("demoBannerSampleData")} <a href="https://naildesk.shop" style={{color:C.pinkDark,textDecoration:"none",fontWeight:600}}>{tr("demoBannerGetOwn")}</a></span>
         {langToggle}
