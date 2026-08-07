@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import Onboarding from './Onboarding.jsx';
+import { registerSW } from 'virtual:pwa-register';
+
+registerSW({ immediate: true, onNeedRefresh() { window.location.reload(); } });
 
 // /onboarding is the post-payment setup form (see src/Onboarding.jsx).
 // Everything else falls through to the demo/dashboard app. vercel.json
