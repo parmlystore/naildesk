@@ -566,8 +566,10 @@ export default function NailDesk() {
   const [supportSent, setSupportSent] = useState(null);
 
   // Computed
-  const totalIn = income.reduce((s,i)=>s+i.amount,0);
-  const totalOut = expenses.reduce((s,e)=>s+e.amount,0);
+  // Computed
+  const curMonthStr = new Date().toISOString().slice(0,7);
+  const totalIn = income.filter(i=>i.date.startsWith(curMonthStr)).reduce((s,i)=>s+i.amount,0);
+  const totalOut = expenses.filter(e=>e.date.startsWith(curMonthStr)).reduce((s,e)=>s+e.amount,0);
   const hour = new Date().getHours();
   const greeting = hour<12?tr("greetingMorning"):hour<17?tr("greetingAfternoon"):tr("greetingEvening");
 
