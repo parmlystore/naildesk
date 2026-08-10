@@ -247,7 +247,7 @@ const TR = {
   },
   tc: {
     nav_dashboard:"首頁", nav_appointments:"預約", nav_clients:"客戶", nav_finances:"財務",
-    nav_prices:"價目表", nav_stock:"待辦事項", nav_settings:"預約設定", nav_support:"客服支援",
+    nav_prices:"價目表", nav_stock:"庫存", nav_todo:"待辦事項", nav_settings:"預約設定", nav_support:"客服支援",
     sidebarTagline:"工作室",
     greetingMorning:"早安", greetingAfternoon:"午安", greetingEvening:"晚安",
     statIncome:"收入", statExpenses:"支出", statNet:"淨收入",
