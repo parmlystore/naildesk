@@ -83,7 +83,7 @@ const UNIT_KEYS = { "pcs":"unitPcs", "packs":"unitPacks", "bottles":"unitBottles
 const TR = {
   en: {
     nav_dashboard:"Home", nav_appointments:"Bookings", nav_clients:"Clients", nav_finances:"Finances",
-    nav_prices:"Prices", nav_stock:"To-Do", nav_settings:"Booking", nav_support:"Support",
+    nav_prices:"Prices", nav_stock:"Stock", nav_todo:"To-Do", nav_settings:"Booking", nav_support:"Support",
     sidebarTagline:"Studio",
     greetingMorning:"Good morning", greetingAfternoon:"Good afternoon", greetingEvening:"Good evening",
     statIncome:"Income", statExpenses:"Expenses", statNet:"Net",
