@@ -430,15 +430,16 @@ const NAV = [
   {id:"finances"},
   {id:"prices"},
   {id:"stock"},
+  {id:"todo"},
   {id:"settings"},
   {id:"support"},
 ];
 
-// ── SIDEBAR (top-level component) ─────────────────────────────────
+// ── SIDEBAR (top-level component) ────────────────────────────────
 function AppSidebar({screen, setScreen, lang}) {
   const icons = {
     dashboard: "⊞", appointments: "📅", clients: "👤",
-    finances: "💰", prices: "🏷", stock: "✅",
+    finances: "💰", prices: "🏷", stock: "📦", todo: "✅",
     settings: "⚙️", support: "❓",
   };
   const navLabel = (id) => (TR[lang]&&TR[lang][`nav_${id}`]) || TR.en[`nav_${id}`] || id;
