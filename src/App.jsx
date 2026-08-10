@@ -1242,6 +1242,7 @@ export default function NailDesk() {
   else if (screen==="finances")     content = renderFinances();
   else if (screen==="prices")       content = renderPrices();
   else if (screen==="stock")        content = renderStock();
+  else if (screen==="todo")        content = renderTodo();
   else if (screen==="settings")     content = renderSettings();
   else if (screen==="support")      content = renderSupport();
   else if (screen==="booking")      content = renderBooking();
