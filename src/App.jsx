@@ -165,7 +165,7 @@ const TR = {
   },
   cn: {
     nav_dashboard:"首页", nav_appointments:"预约", nav_clients:"客户", nav_finances:"财务",
-    nav_prices:"价目表", nav_stock:"待办事项", nav_settings:"预约设置", nav_support:"客服支持",
+    nav_prices:"价目表", nav_stock:"库存", nav_todo:"待办事项", nav_settings:"预约设置", nav_support:"客服支持",
     sidebarTagline:"工作室",
     greetingMorning:"早上好", greetingAfternoon:"下午好", greetingEvening:"晚上好",
     statIncome:"收入", statExpenses:"支出", statNet:"净收入",
