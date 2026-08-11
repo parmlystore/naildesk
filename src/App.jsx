@@ -389,9 +389,10 @@ const INIT_TODOS = [
 const fmtDate = d => { if(!d) return "—"; const dt=new Date(d); return `${dt.getDate()} ${MONTHS[dt.getMonth()]} ${dt.getFullYear()}`; };
 const fmt12 = t => { const [h,m]=t.split(":").map(Number); const mm=String(m).padStart(2,"0"); return h===12?`12:${mm}pm`:h>12?`${h-12}:${mm}pm`:`${h}:${mm}am`; };
 const todayStr = () => new Date().toISOString().split("T")[0];
-const DEMO_SHIFT_DAYS = Math.round((new Date() - new Date('2026-07-11T00:00:00')) / 86400000);
-function shiftDate(dateStr){ const d = new Date(dateStr + 'T00:00:00'); d.setDate(d.getDate() + DEMO_SHIFT_DAYS); return d.toISOString().slice(0,10); }
-function shiftArr(arr){ return arr.map(r => ({...r, date: shiftDate(r.date)})); }
+const FIN_SHIFT_DAYS = Math.round((new Date() - new Date('2026-06-13T00:00:00')) / 86400000);
+const APPT_SHIFT_DAYS = Math.round((new Date() - new Date('2026-07-02T00:00:00')) / 86400000);
+function shiftDate(dateStr, days){ const d = new Date(dateStr + 'T00:00:00'); d.setDate(d.getDate() + days); return d.toISOString().slice(0,10); }
+function shiftArr(arr, days){ return arr.map(r => ({...r, date: shiftDate(r.date, days)})); }
 
 // ── LOCALIZED DATE/TIME DISPLAY HELPERS ────────────────────────────
 // These only change the RENDERED text — the underlying date strings
