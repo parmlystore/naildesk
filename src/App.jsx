@@ -493,9 +493,9 @@ export default function NailDesk() {
 
   // Data state
   const [clients, setClients] = useState(INIT_CLIENTS);
-  const [appts, setAppts] = useState(INIT_APPTS);
-  const [income, setIncome] = useState(INIT_INCOME);
-  const [expenses, setExpenses] = useState(INIT_EXPENSES);
+  const [appts, setAppts] = useState(() => shiftArr(INIT_APPTS));
+  const [income, setIncome] = useState(() => shiftArr(INIT_INCOME));
+  const [expenses, setExpenses] = useState(() => shiftArr(INIT_EXPENSES));
   const [prices, setPrices] = useState(INIT_PRICES);
   const [stock, setStock] = useState(INIT_STOCK);
   const [todos, setTodos] = useState(INIT_TODOS);
