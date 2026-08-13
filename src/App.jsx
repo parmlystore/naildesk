@@ -585,18 +585,18 @@ export default function NailDesk() {
   const btn={background:C.pinkDark,color:"#fff",border:"none",borderRadius:10,padding:"12px 20px",fontSize:13,fontWeight:600,cursor:"pointer",width:"100%"};
   const btnSm={background:C.pinkDark,color:"#fff",border:"none",borderRadius:8,padding:"6px 13px",fontSize:11,fontWeight:600,cursor:"pointer"};
   const btnGhost={background:"transparent",color:C.pinkDark,border:`1.5px solid ${C.pinkDark}`,borderRadius:10,padding:"11px 20px",fontSize:13,fontWeight:600,cursor:"pointer",width:"100%"};
-  const card={background:C.card,borderRadius:14,padding:"14px 16px",marginBottom:10,boxShadow:"0 1px 4px rgba(42,33,24,0.07)"};
+  const card={background:C.card,borderRadius:14,padding:"20px 22px",marginBottom:10,boxShadow:"0 1px 4px rgba(42,33,24,0.07)"};
   const row={display:"flex",justifyContent:"space-between",alignItems:"center",padding:"9px 0",borderBottom:`1px solid ${C.border}`};
   const lbl={fontSize:11,color:C.sub,marginBottom:4,display:"block",fontWeight:500};
-  const stitle={fontSize:10,fontWeight:700,color:C.mute,textTransform:"uppercase",letterSpacing:"0.12em",marginBottom:10};
+  const stitle={fontSize:11,fontWeight:700,color:C.mute,textTransform:"uppercase",letterSpacing:"0.12em",marginBottom:14};
   const pill=(bg,col)=>({background:bg,color:col,padding:"2px 8px",borderRadius:20,fontSize:10,fontWeight:600,display:"inline-block"});
   const chk=(done)=>({width:18,height:18,borderRadius:5,border:`2px solid ${done?C.pinkDark:C.border}`,background:done?C.pinkDark:C.card,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",flexShrink:0});
 
   const TopBar=({title,action})=>(
     <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:18,paddingBottom:14,borderBottom:`1px solid ${C.border}`}}>
       <div>
-        <div style={{fontFamily:"'Playfair Display',serif",fontSize:20,fontWeight:400,fontStyle:"italic",color:C.text}}>{title}</div>
-        {screen==="dashboard"&&<div style={{fontSize:10,color:C.sub,marginTop:1,letterSpacing:"0.08em",textTransform:"uppercase"}}>{studioName}</div>}
+        <div style={{fontFamily:"'Playfair Display',serif",fontSize:28,fontWeight:400,fontStyle:"italic",color:C.text}}>{title}</div>
+        {screen==="dashboard"&&<div style={{fontSize:12,color:C.sub,marginTop:2,letterSpacing:"0.08em",textTransform:"uppercase"}}>{studioName}</div>}
       </div>
       {action}
     </div>
@@ -657,9 +657,9 @@ export default function NailDesk() {
         <TopBar title={greeting}/>
         <div style={{display:"flex",gap:10,marginBottom:14}}>
           {[{k:"statIncome",v:`$${totalIn.toLocaleString()}`,c:C.green},{k:"statExpenses",v:`$${totalOut.toLocaleString()}`,c:C.amber},{k:"statNet",v:`$${(totalIn-totalOut).toLocaleString()}`,c:(totalIn-totalOut)>=0?C.green:C.red}].map(s=>(
-            <div key={s.k} style={{...card,flex:1,marginBottom:0,textAlign:"center",padding:"12px 8px"}}>
-              <div style={{fontSize:17,fontWeight:800,color:s.c}}>{s.v}</div>
-              <div style={{fontSize:9,color:C.mute,marginTop:3,textTransform:"uppercase",letterSpacing:"0.08em"}}>{tr(s.k)}</div>
+            <div key={s.k} style={{...card,flex:1,marginBottom:0,textAlign:"center",padding:"22px 14px"}}>
+              <div style={{fontSize:32,fontWeight:800,color:s.c}}>{s.v}</div>
+              <div style={{fontSize:11,color:C.mute,marginTop:6,textTransform:"uppercase",letterSpacing:"0.08em"}}>{tr(s.k)}</div>
             </div>
           ))}
         </div>
@@ -668,18 +668,18 @@ export default function NailDesk() {
             <div style={stitle}>{tr("stitleTodayAppts")}</div>
             <button onClick={()=>setScreen("appointments")} style={{...btnSm,background:"transparent",color:C.pinkDark,border:`1px solid ${C.pinkLight}`}}>{tr("btnViewAll")}</button>
           </div>
-          {todayAppts.length===0?<div style={{color:C.mute,fontSize:13}}>{tr("apptsEmptyToday")}</div>:todayAppts.map(a=>(
-            <div key={a.id} style={{display:"flex",alignItems:"center",gap:12,padding:"9px 0",borderBottom:`1px solid ${C.border}`,cursor:"pointer"}} onClick={()=>{setSelAppt(a);setScreen("appointments")}}>
-              <div style={{fontSize:13,fontWeight:700,color:C.text,width:60}}>{fmt12Loc(a.time,lang)}</div>
-              <div style={{flex:1}}><div style={{fontWeight:600,fontSize:13}}>{a.client}</div><div style={{fontSize:11,color:C.sub}}>{serviceLabel(a.service,lang)}</div></div>
-              <div style={{fontSize:13,fontWeight:700,color:C.pinkDark}}>${a.price}</div>
+          {todayAppts.length===0?<div style={{color:C.mute,fontSize:14}}>{tr("apptsEmptyToday")}</div>:todayAppts.map(a=>(
+            <div key={a.id} style={{display:"flex",alignItems:"center",gap:14,padding:"14px 0",borderBottom:`1px solid ${C.border}`,cursor:"pointer"}} onClick={()=>{setSelAppt(a);setScreen("appointments")}}>
+              <div style={{fontSize:15,fontWeight:700,color:C.text,width:66}}>{fmt12Loc(a.time,lang)}</div>
+              <div style={{flex:1}}><div style={{fontWeight:600,fontSize:15}}>{a.client}</div><div style={{fontSize:13,color:C.sub,marginTop:2}}>{serviceLabel(a.service,lang)}</div></div>
+              <div style={{fontSize:15,fontWeight:700,color:C.pinkDark}}>${a.price}</div>
             </div>
           ))}
         </div>
         <div style={{...card,background:C.greenLight,border:`1px solid ${C.green}30`}}>
-          <div style={{fontSize:12,fontWeight:700,color:C.green,marginBottom:6}}>{tr("onlineBookingActiveTitle")}</div>
-          <div style={{fontSize:12,color:C.text,lineHeight:1.6,marginBottom:10}}>{tr("onlineBookingActiveDesc")}</div>
-          <button onClick={()=>setScreen("booking")} style={btnSm}>{tr("btnTryBooking")}</button>
+          <div style={{fontSize:14,fontWeight:700,color:C.green,marginBottom:8}}>{tr("onlineBookingActiveTitle")}</div>
+          <div style={{fontSize:14,color:C.text,lineHeight:1.6,marginBottom:12}}>{tr("onlineBookingActiveDesc")}</div>
+          <button onClick={()=>setScreen("booking")} style={{...btnSm,fontSize:13,padding:"8px 16px"}}>{tr("btnTryBooking")}</button>
         </div>
       </div>
     );
@@ -1286,8 +1286,10 @@ export default function NailDesk() {
       </div>
       <div style={{display:"flex",flex:1}}>
         <AppSidebar screen={screen} setScreen={setScreen} lang={lang}/>
-        <div style={{flex:1,padding:"20px 18px",overflowY:"auto"}}>
-          {content}
+        <div style={{flex:1,padding:"32px 40px",overflowY:"auto"}}>
+          <div style={{maxWidth:820,margin:"0 auto"}}>
+            {content}
+          </div>
         </div>
       </div>
       <div style={{padding:"10px",textAlign:"center",background:C.card,borderTop:`1px solid ${C.border}`,flexShrink:0}}>
