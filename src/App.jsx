@@ -449,20 +449,19 @@ function AppSidebar({screen, setScreen, lang}) {
   const navLabel = (id) => (TR[lang]&&TR[lang][`nav_${id}`]) || TR.en[`nav_${id}`] || id;
   return (
     <div style={{width:220,flexShrink:0,background:C.sidebar,minHeight:"100vh",display:"flex",flexDirection:"column",paddingTop:28,gap:2,position:"sticky",top:0,borderRight:`1px solid ${C.border}`}}>
-      <div style={{marginBottom:20,padding:"0 24px"}}>
-        <div style={{fontFamily:"'Dancing Script',cursive",fontSize:30,fontWeight:700,color:C.text,lineHeight:1}}>Bloom</div>
-        <div style={{fontSize:10,color:C.text,opacity:0.5,marginTop:4,letterSpacing:"0.12em",textTransform:"uppercase"}}>{(TR[lang]&&TR[lang].sidebarTagline)||TR.en.sidebarTagline}</div>
+      <div style={{marginBottom:26,padding:"0 26px"}}>
+        <div style={{fontFamily:"'Dancing Script',cursive",fontSize:36,fontWeight:700,color:C.text,lineHeight:1}}>Bloom</div>
+        <div style={{fontSize:11,color:C.text,opacity:0.55,marginTop:5,letterSpacing:"0.12em",textTransform:"uppercase"}}>{(TR[lang]&&TR[lang].sidebarTagline)||TR.en.sidebarTagline}</div>
       </div>
-      <div style={{margin:"0 24px 12px",height:1,background:C.border}}/>
+      <div style={{margin:"0 26px 16px",height:1,background:C.border}}/>
       {NAV.map(item=>{
         const active=screen===item.id;
         return (
           <div key={item.id} onClick={()=>setScreen(item.id)}
-            style={{margin:"0 12px 2px",padding:"11px 12px",borderRadius:10,display:"flex",alignItems:"center",gap:12,cursor:"pointer",
-              background:active?"rgba(255,255,255,0.5)":"transparent",
-              borderLeft:active?`3px solid ${C.pinkDark}`:"3px solid transparent"}}>
-            <div style={{fontSize:18,opacity:active?1:0.55,width:20,textAlign:"center",flexShrink:0}}>{icons[item.id]}</div>
-            <div style={{fontSize:14,fontWeight:active?700:500,color:active?C.pinkDark:C.text,opacity:active?1:0.75}}>{navLabel(item.id)}</div>
+            style={{margin:"0 14px 4px",padding:"15px 18px",borderRadius:11,display:"flex",alignItems:"center",gap:14,cursor:"pointer",
+              background:active?C.pinkDark:"transparent"}}>
+            <div style={{fontSize:20,opacity:active?1:0.6,width:22,textAlign:"center",flexShrink:0}}>{icons[item.id]}</div>
+            <div style={{fontSize:16,fontWeight:active?700:500,color:active?"#fff":C.text,opacity:active?1:0.8}}>{navLabel(item.id)}</div>
           </div>
         );
       })}
@@ -585,18 +584,18 @@ export default function NailDesk() {
   const btn={background:C.pinkDark,color:"#fff",border:"none",borderRadius:10,padding:"12px 20px",fontSize:13,fontWeight:600,cursor:"pointer",width:"100%"};
   const btnSm={background:C.pinkDark,color:"#fff",border:"none",borderRadius:8,padding:"6px 13px",fontSize:11,fontWeight:600,cursor:"pointer"};
   const btnGhost={background:"transparent",color:C.pinkDark,border:`1.5px solid ${C.pinkDark}`,borderRadius:10,padding:"11px 20px",fontSize:13,fontWeight:600,cursor:"pointer",width:"100%"};
-  const card={background:C.card,borderRadius:14,padding:"24px 26px",marginBottom:10,boxShadow:"0 1px 4px rgba(42,33,24,0.07)"};
+  const card={background:C.card,borderRadius:14,padding:"28px 30px",marginBottom:12,boxShadow:"0 1px 4px rgba(42,33,24,0.07)"};
   const row={display:"flex",justifyContent:"space-between",alignItems:"center",padding:"9px 0",borderBottom:`1px solid ${C.border}`};
   const lbl={fontSize:11,color:C.sub,marginBottom:4,display:"block",fontWeight:500};
-  const stitle={fontSize:12,fontWeight:700,color:C.mute,textTransform:"uppercase",letterSpacing:"0.12em",marginBottom:16};
+  const stitle={fontSize:13,fontWeight:700,color:C.mute,textTransform:"uppercase",letterSpacing:"0.12em",marginBottom:18};
   const pill=(bg,col)=>({background:bg,color:col,padding:"2px 8px",borderRadius:20,fontSize:10,fontWeight:600,display:"inline-block"});
   const chk=(done)=>({width:18,height:18,borderRadius:5,border:`2px solid ${done?C.pinkDark:C.border}`,background:done?C.pinkDark:C.card,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",flexShrink:0});
 
   const TopBar=({title,action})=>(
-    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:18,paddingBottom:14,borderBottom:`1px solid ${C.border}`}}>
+    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:24,paddingBottom:18,borderBottom:`1px solid ${C.border}`}}>
       <div>
-        <div style={{fontFamily:"'Playfair Display',serif",fontSize:34,fontWeight:400,fontStyle:"italic",color:C.text}}>{title}</div>
-        {screen==="dashboard"&&<div style={{fontSize:13,color:C.sub,marginTop:3,letterSpacing:"0.08em",textTransform:"uppercase"}}>{studioName}</div>}
+        <div style={{fontFamily:"'Playfair Display',serif",fontSize:38,fontWeight:400,fontStyle:"italic",color:C.text}}>{title}</div>
+        {screen==="dashboard"&&<div style={{fontSize:14,color:C.sub,marginTop:4,letterSpacing:"0.08em",textTransform:"uppercase"}}>{studioName}</div>}
       </div>
       {action}
     </div>
@@ -657,9 +656,9 @@ export default function NailDesk() {
         <TopBar title={greeting}/>
         <div style={{display:"flex",gap:10,marginBottom:14}}>
           {[{k:"statIncome",v:`$${totalIn.toLocaleString()}`,c:C.green},{k:"statExpenses",v:`$${totalOut.toLocaleString()}`,c:C.amber},{k:"statNet",v:`$${(totalIn-totalOut).toLocaleString()}`,c:(totalIn-totalOut)>=0?C.green:C.red}].map(s=>(
-            <div key={s.k} style={{...card,flex:1,marginBottom:0,textAlign:"center",padding:"26px 16px"}}>
-              <div style={{fontSize:40,fontWeight:800,color:s.c}}>{s.v}</div>
-              <div style={{fontSize:12,color:C.mute,marginTop:7,textTransform:"uppercase",letterSpacing:"0.08em"}}>{tr(s.k)}</div>
+            <div key={s.k} style={{...card,flex:1,marginBottom:0,textAlign:"left",padding:"34px 30px"}}>
+              <div style={{fontFamily:"'Playfair Display',serif",fontSize:48,fontWeight:700,color:s.c,lineHeight:1}}>{s.v}</div>
+              <div style={{fontSize:13,color:C.mute,marginTop:10,textTransform:"uppercase",letterSpacing:"0.08em"}}>{tr(s.k)}</div>
             </div>
           ))}
         </div>
@@ -1286,8 +1285,8 @@ export default function NailDesk() {
       </div>
       <div style={{display:"flex",flex:1}}>
         <AppSidebar screen={screen} setScreen={setScreen} lang={lang}/>
-        <div style={{flex:1,padding:"36px 48px",overflowY:"auto"}}>
-          <div style={{maxWidth:960,margin:"0 auto"}}>
+        <div style={{flex:1,padding:"44px 56px",overflowY:"auto"}}>
+          <div style={{maxWidth:1000,margin:"0 auto"}}>
             {content}
           </div>
         </div>
