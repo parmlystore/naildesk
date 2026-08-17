@@ -97,7 +97,7 @@ const TR = {
     titleAddAppt:"+ Manual Appointment", lblClientName:"Client name", lblPhone:"Phone", lblTime:"Time",
     lblService:"Service", btnAddAppt:"Add Appointment",
     lblDuration:"Duration", lblPrice:"Price",
-    btnAdd:"+ Add", placeholderSearchClients:"Search clients...", pillNote:"⚠ Note",
+    btnAdd:"+ Add", btnEditPrices:"Edit", btnDonePrices:"Done", titleAddPriceItem:"+ Add Price Item", placeholderSearchClients:"Search clients...", pillNote:"⚠ Note",
     pillOnline:"🔗 Online", pillManual:"✏️ Manual",
     lblEmail:"Email", lblDob:"Date of birth", lblClientSince:"Client since", labelNotesHeader:"⚠ NOTES",
     titleNewClient:"New Client", lblFullName:"Full Name", lblNotes:"Notes", btnAddClient:"Add Client",
@@ -179,7 +179,7 @@ const TR = {
     titleAddAppt:"+ 手动添加预约", lblClientName:"客户姓名", lblPhone:"电话", lblTime:"时间",
     lblService:"服务项目", btnAddAppt:"添加预约",
     lblDuration:"时长", lblPrice:"价格",
-    btnAdd:"+ 添加", placeholderSearchClients:"搜索客户...", pillNote:"⚠ 备注",
+    btnAdd:"+ 添加", btnEditPrices:"编辑", btnDonePrices:"完成", titleAddPriceItem:"+ 添加价目", placeholderSearchClients:"搜索客户...", pillNote:"⚠ 备注",
     pillOnline:"🔗 在线", pillManual:"✏️ 手动",
     lblEmail:"邮箱", lblDob:"出生日期", lblClientSince:"建档日期", labelNotesHeader:"⚠ 备注",
     titleNewClient:"新增客户", lblFullName:"姓名", lblNotes:"备注", btnAddClient:"添加客户",
@@ -261,7 +261,7 @@ const TR = {
     titleAddAppt:"+ 手動新增預約", lblClientName:"客戶姓名", lblPhone:"電話", lblTime:"時間",
     lblService:"服務項目", btnAddAppt:"新增預約",
     lblDuration:"時長", lblPrice:"價格",
-    btnAdd:"+ 新增", placeholderSearchClients:"搜尋客戶...", pillNote:"⚠ 備註",
+    btnAdd:"+ 新增", btnEditPrices:"編輯", btnDonePrices:"完成", titleAddPriceItem:"+ 新增價目", placeholderSearchClients:"搜尋客戶...", pillNote:"⚠ 備註",
     pillOnline:"🔗 線上", pillManual:"✏️ 手動",
     lblEmail:"電郵", lblDob:"出生日期", lblClientSince:"建檔日期", labelNotesHeader:"⚠ 備註",
     titleNewClient:"新增客戶", lblFullName:"姓名", lblNotes:"備註", btnAddClient:"新增客戶",
@@ -497,6 +497,9 @@ export default function NailDesk() {
   const [income, setIncome] = useState(() => shiftArr(INIT_INCOME, FIN_SHIFT_DAYS));
   const [expenses, setExpenses] = useState(() => shiftArr(INIT_EXPENSES, FIN_SHIFT_DAYS));
   const [prices, setPrices] = useState(INIT_PRICES);
+  const [editingPrices, setEditingPrices] = useState(false);
+  const [showAddPrice, setShowAddPrice] = useState(false);
+  const [newPriceItem, setNewPriceItem] = useState({name:"",duration:"",price:""});
   const [stock, setStock] = useState(INIT_STOCK);
   const [todos, setTodos] = useState(INIT_TODOS);
   const [newTodo, setNewTodo] = useState("");
@@ -874,7 +877,12 @@ export default function NailDesk() {
   // ── PRICES ────────────────────────────────────────────────────────
   const renderPrices = () => (
     <div>
-      <TopBar title={tr("titlePriceList")} action={<button onClick={()=>window.print()} style={btnSm}>{tr("btnPrint")}</button>}/>
+      <TopBar title={tr("titlePriceList")} action={
+        <div style={{display:"flex",gap:8}}>
+          <button className="no-print" onClick={()=>setEditingPrices(!editingPrices)} style={{...btnSm,background:editingPrices?C.green:C.pinkDark}}>{editingPrices?tr("btnDonePrices"):tr("btnEditPrices")}</button>
+          <button className="no-print" onClick={()=>window.print()} style={btnSm}>{tr("btnPrint")}</button>
+        </div>
+      }/>
       <div id="price-card" style={{background:C.card,borderRadius:16,overflow:"hidden",boxShadow:"0 2px 12px rgba(42,33,24,0.10)",marginBottom:12}}>
         <div style={{background:`linear-gradient(135deg, #7A6D63 0%, #9C8E84 100%)`,padding:"28px 22px 20px",textAlign:"center"}}>
           <div style={{fontFamily:"'Dancing Script',cursive",fontSize:32,fontWeight:700,color:"#fff"}}>{studioName}</div>
@@ -882,13 +890,41 @@ export default function NailDesk() {
           <div style={{width:24,height:1,background:"rgba(255,255,255,0.3)",margin:"10px auto 0"}}/>
         </div>
         <div style={{padding:"18px 20px"}}>
-          {prices.filter(p=>p.active).map((item,i)=>(
-            <div key={item.id} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"11px 0",borderBottom:i<prices.filter(p=>p.active).length-1?`1px solid ${C.border}`:"none"}}>
-              <div><div style={{fontWeight:600,fontSize:14}}>{serviceLabel(item.name,lang)}</div><div style={{fontSize:11,color:C.sub,marginTop:2}}>⏱ {durText(item.duration,lang)}</div></div>
-              <div style={{fontSize:19,fontWeight:800,color:C.pinkDark,fontFamily:"'Playfair Display',serif"}}>${item.price}</div>
+          {prices.filter(p=>p.active).map((item,i,arr)=>(
+            <div key={item.id} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"11px 0",borderBottom:i<arr.length-1?`1px solid ${C.border}`:"none",gap:10}}>
+              <div style={{flex:1,minWidth:0}}>
+                {editingPrices?(
+                  <input className="no-print" style={{...inp,fontSize:14,fontWeight:600,padding:"6px 9px",marginBottom:4}} value={item.name} onChange={e=>setPrices(prices.map(p=>p.id===item.id?{...p,name:e.target.value}:p))}/>
+                ):(
+                  <div style={{fontWeight:600,fontSize:14}}>{serviceLabel(item.name,lang)}</div>
+                )}
+                {editingPrices?(
+                  <div className="no-print" style={{display:"flex",alignItems:"center",gap:4,marginTop:2}}>
+                    <span style={{fontSize:11,color:C.sub}}>⏱</span>
+                    <input type="number" style={{...inp,width:56,padding:"4px 7px",fontSize:11}} value={item.duration} onChange={e=>setPrices(prices.map(p=>p.id===item.id?{...p,duration:e.target.value===""?"":parseInt(e.target.value)||0}:p))}/>
+                    <span style={{fontSize:11,color:C.sub}}>min</span>
+                  </div>
+                ):(
+                  <div style={{fontSize:11,color:C.sub,marginTop:2}}>⏱ {durText(item.duration,lang)}</div>
+                )}
+              </div>
+              {editingPrices?(
+                <div className="no-print" style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
+                  <span style={{fontSize:16,fontWeight:700,color:C.pinkDark}}>$</span>
+                  <input type="number" style={{...inp,width:66,padding:"6px 9px",fontSize:16,fontWeight:700,color:C.pinkDark}} value={item.price} onChange={e=>setPrices(prices.map(p=>p.id===item.id?{...p,price:e.target.value===""?"":parseFloat(e.target.value)||0}:p))}/>
+                  <button onClick={()=>setPrices(prices.map(p=>p.id===item.id?{...p,active:false}:p))} style={{background:"none",border:"none",color:C.mute,fontSize:18,cursor:"pointer",lineHeight:1}}>×</button>
+                </div>
+              ):(
+                <div style={{fontSize:19,fontWeight:800,color:C.pinkDark,fontFamily:"'Playfair Display',serif",flexShrink:0}}>${item.price}</div>
+              )}
             </div>
           ))}
         </div>
+        {editingPrices&&(
+          <div className="no-print" style={{padding:"4px 20px 18px"}}>
+            <button onClick={()=>setShowAddPrice(true)} style={{...btnGhost,width:"100%"}}>{tr("btnAdd")}</button>
+          </div>
+        )}
         <div style={{background:C.pinkLight,padding:"12px 20px",textAlign:"center"}}>
           <div style={{fontSize:11,fontWeight:600,color:C.pinkDark}}>{tr("priceBookOnline")}</div>
         </div>
@@ -897,6 +933,19 @@ export default function NailDesk() {
         <div style={{fontSize:12,fontWeight:700,color:C.green,marginBottom:6}}>{tr("shareTitle")}</div>
         <div style={{fontSize:12,color:C.text,lineHeight:1.6}}>{tr("shareDesc")}</div>
       </div>
+      {showAddPrice&&(
+        <div style={overlay} onClick={()=>setShowAddPrice(false)}>
+          <div style={sheet} onClick={e=>e.stopPropagation()}>
+            <div style={{fontWeight:700,fontSize:16,marginBottom:16}}>{tr("titleAddPriceItem")}</div>
+            <div style={{marginBottom:10}}><label style={lbl}>{tr("lblItemName")}</label><input style={inp} value={newPriceItem.name} onChange={e=>setNewPriceItem({...newPriceItem,name:e.target.value})}/></div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:14}}>
+              <div><label style={lbl}>{tr("lblDuration")}</label><input style={inp} type="number" value={newPriceItem.duration} onChange={e=>setNewPriceItem({...newPriceItem,duration:e.target.value})}/></div>
+              <div><label style={lbl}>{tr("lblPrice")}</label><input style={inp} type="number" value={newPriceItem.price} onChange={e=>setNewPriceItem({...newPriceItem,price:e.target.value})}/></div>
+            </div>
+            <button style={btn} onClick={()=>{if(newPriceItem.name){setPrices([...prices,{id:Date.now(),name:newPriceItem.name,duration:parseInt(newPriceItem.duration)||0,price:parseFloat(newPriceItem.price)||0,active:true}]);setNewPriceItem({name:"",duration:"",price:""});setShowAddPrice(false);}}}>{tr("btnAddItem")}</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 
