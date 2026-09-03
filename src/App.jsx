@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from './supabaseClient.js';
+import Login from './Login.jsx';
+import Dashboard from './Dashboard.jsx';
+import Booking from './Booking.jsx';
 
 // ── COLOURS ──────────────────────────────────────────────────────
 const C = {
@@ -479,6 +483,30 @@ const REGION_DEFAULT_LANG = { au: "en", cn: "cn", hk: "tc" };
 
 // ── MAIN APP ──────────────────────────────────────────────────────
 export default function NailDesk() {
+const [session, setSession] = useState(undefined);
+const [isRecovery, setIsRecovery] = useState(() => typeof window !== 'undefined' && window.location.hash.includes('type=recovery'));
+const __params = new URLSearchParams(window.location.search);
+const __bookingSlug = __params.get('book');
+const __path = window.location.pathname;
+
+useEffect(() => {
+supabase.auth.getSession().then(({ data }) => setSession(data.session));
+const { data: listener } = supabase.auth.onAuthStateChange((event, sess) => {
+setSession(sess);
+});
+return () => listener.subscription.unsubscribe();
+}, []);
+
+if (__bookingSlug) { return <Booking slug={__bookingSlug} />; }
+const __pathMatch = __path.match(/^\/book\/([a-zA-Z0-9-]+)/);
+if (__pathMatch) { return <Booking slug={__pathMatch[1]} />; }
+
+if (__path === '/login') {
+if (session === undefined) { return <div style={{padding:40}}>Loading…</div>; }
+if (!session) { return <Login />; }
+return <Dashboard session={session} />;
+}
+
   const studioName = "Bloom Nails";
   const [screen, setScreen] = useState("dashboard");
   const region = (() => {
