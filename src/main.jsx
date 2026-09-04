@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import Onboarding from './Onboarding.jsx';
+import './styles.css';
 import { registerSW } from 'virtual:pwa-register';
 
 // Workbox is configured with skipWaiting + clientsClaim (see vite.config.js),
@@ -15,11 +16,11 @@ import { registerSW } from 'virtual:pwa-register';
 registerSW({ immediate: true });
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (sessionStorage.getItem('sw-reloaded')) return;
-    sessionStorage.setItem('sw-reloaded', '1');
-    window.location.reload();
-  });
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+if (sessionStorage.getItem('sw-reloaded')) return;
+sessionStorage.setItem('sw-reloaded', '1');
+window.location.reload();
+});
 }
 
 // /onboarding is the post-payment setup form (see src/Onboarding.jsx).
