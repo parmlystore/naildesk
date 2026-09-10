@@ -135,7 +135,7 @@ style={{display:'flex', justifyContent:'space-between', alignItems:'center', pad
 <div style={{fontWeight:500}}>{s.name}</div>
 <div style={{fontSize:'0.78rem', color:'var(--ink-soft)'}}>{s.duration_mins} min</div>
 </div>
-<div style={{fontFamily:'var(--fd)', fontWeight:500}}>$" + "{Number(s.price).toFixed(0)}</div>
+<div style={{fontFamily:'var(--fd)', fontWeight:500}}>${Number(s.price).toFixed(0)}</div>
 </div>
 ))}
 {services.length === 0 && <p className="sub">No services are set up yet — check back soon.</p>}
@@ -185,7 +185,7 @@ onClick={() => !isFull && setSlot(t)}>
 <div className="field"><label>Email</label><input type="email" value={email} onChange={e => setEmail(e.target.value)} /></div>
 {settings?.require_deposit && settings?.deposit_amount > 0 && (
 <div style={{background:'var(--amber-light)', color:'var(--amber)', fontSize:'0.85rem', padding:'12px 14px', borderRadius:5, marginBottom:16}}>
-<strong>Deposit — $" + "{Number(settings.deposit_amount).toFixed(0)}</strong><br/>
+<strong>Deposit — ${Number(settings.deposit_amount).toFixed(0)}</strong><br/>
 Transfer to {settings.bank_account_name} · BSB {settings.bank_bsb} · Acc {settings.bank_account_number} · Reference: your name.
 </div>
 )}
@@ -208,7 +208,7 @@ Transfer to {settings.bank_account_name} · BSB {settings.bank_bsb} · Acc {sett
 <div style={{display:'flex', justifyContent:'space-between', padding:'6px 0'}}><span>Reference</span><span>{confirmed.reference}</span></div>
 <div style={{display:'flex', justifyContent:'space-between', padding:'6px 0'}}><span>Service</span><span>{service.name}</span></div>
 <div style={{display:'flex', justifyContent:'space-between', padding:'6px 0'}}><span>When</span><span>{dates[dateIdx].toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short' })}, {slot}</span></div>
-<div style={{display:'flex', justifyContent:'space-between', padding:'6px 0'}}><span>Price</span><span>$" + "{Number(service.price).toFixed(0)}</span></div>
+<div style={{display:'flex', justifyContent:'space-between', padding:'6px 0'}}><span>Price</span><span>${Number(service.price).toFixed(0)}</span></div>
 </div>
 <p className="sub">A confirmation has been recorded — the studio has been notified instantly.</p>
 </div>
