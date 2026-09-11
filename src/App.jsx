@@ -93,7 +93,7 @@ const TR = {
     statIncome:"Income", statExpenses:"Expenses", statNet:"Net",
     titleAppointments:"Appointments", titleClients:"Clients", titleFinances:"Income & Expenses",
     titlePriceList:"Price List", titleStock:"To-Do & Stock", titleSettings:"Booking Settings", titleSupport:"Get Help",
-    stitleTodayAppts:"Today's Appointments", btnViewAll:"View all →", apptsEmptyToday:"No appointments today",
+    titleTodayAppts:"Today's Appointments", btnViewAll:"View all →", apptsEmptyToday:"No appointments today",
     onlineBookingActiveTitle:"🔗 Online Booking Active", onlineBookingActiveDesc:"Share your booking link — clients book themselves 24/7.",
     btnTryBooking:"Try booking page →",
     btnBookingLink:"🔗 Booking Link", btnManual:"+ Manual", apptsEmpty:"No appointments",
@@ -113,15 +113,15 @@ const TR = {
     methodCard:"Card", methodCash:"Cash", methodBank:"Bank transfer",
     btnPrint:"🖨 Print", priceMenuSubtitle:"Service Menu · Price List", priceBookOnline:"Book online — naildesk.shop",
     shareTitle:"📱 Share your price list", shareDesc:"Tap Print to save as PDF or send to a printer. Screenshot this card to post on Instagram.",
-    stitleTodo:"✅ To-Do List", placeholderTodo:"e.g. Buy disposable wipes", stitleStock:"📦 Supply Stock",
+    titleTodo:"✅ To-Do List", placeholderTodo:"e.g. Buy disposable wipes", titleStock:"📦 Supply Stock",
     reorderPrefix:"Reorder at", lowStockWarning:"⚠ Low stock — reorder now",
     titleAddStock:"+ Add Stock Item", lblItemName:"Item name", placeholderItemName:"e.g. Gel top coat",
     lblQty:"Qty", placeholderZero:"0", lblReorderAt:"Reorder at", lblUnit:"Unit", btnAddItem:"Add Item",
     unitPcs:"pcs", unitPacks:"packs", unitBottles:"bottles", unitBoxes:"boxes", unitSets:"sets",
-    stitleSlotLength:"⏱ Time Slot Length",
-    stitleBlockedDates:"🚫 Blocked Dates", btnBlock:"+ Block",
+    titleSlotLength:"⏱ Time Slot Length",
+    titleBlockedDates:"🚫 Blocked Dates", btnBlock:"+ Block",
     titleBlockDate:"Block a Date", lblReason:"Reason", btnBlockDate:"Block Date",
-    stitleDeposit:"💰 Deposit & Bank Details", lblRequestDeposit:"Request a deposit",
+    titleDeposit:"💰 Deposit & Bank Details", lblRequestDeposit:"Request a deposit",
     lblDepositAmount:"Deposit amount ($)", lblAccountName:"Account name", lblBsb:"BSB", lblAccountNo:"Account No.",
     lblCustomMessage:"Custom message", btnSaveSettings:"Save Settings",
     tabCpa:"📊 Business Support", tabIt:"🛠 IT Support",
@@ -175,7 +175,7 @@ const TR = {
     statIncome:"收入", statExpenses:"支出", statNet:"净收入",
     titleAppointments:"预约", titleClients:"客户", titleFinances:"收支管理",
     titlePriceList:"价目表", titleStock:"待办与库存", titleSettings:"预约设置", titleSupport:"获取帮助",
-    stitleTodayAppts:"今日预约", btnViewAll:"查看全部 →", apptsEmptyToday:"今天没有预约",
+    titleTodayAppts:"今日预约", btnViewAll:"查看全部 →", apptsEmptyToday:"今天没有预约",
     onlineBookingActiveTitle:"🔗 在线预约已启用", onlineBookingActiveDesc:"分享您的预约链接——客户可 24/7 自助预约。",
     btnTryBooking:"体验预约页面 →",
     btnBookingLink:"🔗 预约链接", btnManual:"+ 手动添加", apptsEmpty:"暂无预约",
@@ -195,15 +195,15 @@ const TR = {
     methodCard:"银行卡", methodCash:"现金", methodBank:"银行转账",
     btnPrint:"🖨 打印", priceMenuSubtitle:"服务项目 · 价目表", priceBookOnline:"在线预约 — naildesk.shop",
     shareTitle:"📱 分享您的价目表", shareDesc:"点击打印可保存为 PDF 或直接打印。截图此卡片即可发布到小红书。",
-    stitleTodo:"✅ 待办事项", placeholderTodo:"例如：购买一次性湿巾", stitleStock:"📦 库存管理",
+    titleTodo:"✅ 待办事项", placeholderTodo:"例如：购买一次性湿巾", titleStock:"📦 库存管理",
     reorderPrefix:"补货提醒：", lowStockWarning:"⚠ 库存不足 — 请及时补货",
     titleAddStock:"+ 添加库存项目", lblItemName:"项目名称", placeholderItemName:"例如：啫喱封层油",
     lblQty:"数量", placeholderZero:"0", lblReorderAt:"补货提醒数量", lblUnit:"单位", btnAddItem:"添加项目",
     unitPcs:"个", unitPacks:"包", unitBottles:"瓶", unitBoxes:"盒", unitSets:"套",
-    stitleSlotLength:"⏱ 预约时段长度",
-    stitleBlockedDates:"🚫 休息日期", btnBlock:"+ 添加休息日",
+    titleSlotLength:"⏱ 预约时段长度",
+    titleBlockedDates:"🚫 休息日期", btnBlock:"+ 添加休息日",
     titleBlockDate:"设置休息日期", lblReason:"原因", btnBlockDate:"确认休息",
-    stitleDeposit:"💰 定金与银行信息", lblRequestDeposit:"需要收取定金",
+    titleDeposit:"💰 定金与银行信息", lblRequestDeposit:"需要收取定金",
     lblDepositAmount:"定金金额 ($)", lblAccountName:"账户名称", lblBsb:"BSB 银行代码", lblAccountNo:"账户号码",
     lblCustomMessage:"自定义提示信息", btnSaveSettings:"保存设置",
     tabCpa:"📊 商业支持", tabIt:"🛠 技术支持",
@@ -257,7 +257,7 @@ const TR = {
     statIncome:"收入", statExpenses:"支出", statNet:"淨收入",
     titleAppointments:"預約", titleClients:"客戶", titleFinances:"收支管理",
     titlePriceList:"價目表", titleStock:"待辦與庫存", titleSettings:"預約設定", titleSupport:"取得協助",
-    stitleTodayAppts:"今日預約", btnViewAll:"查看全部 →", apptsEmptyToday:"今天沒有預約",
+    titleTodayAppts:"今日預約", btnViewAll:"查看全部 →", apptsEmptyToday:"今天沒有預約",
     onlineBookingActiveTitle:"🔗 線上預約已啟用", onlineBookingActiveDesc:"分享您的預約連結——客戶可 24/7 自行預約。",
     btnTryBooking:"體驗預約頁面 →",
     btnBookingLink:"🔗 預約連結", btnManual:"+ 手動新增", apptsEmpty:"暫無預約",
@@ -276,15 +276,15 @@ const TR = {
     methodCard:"信用卡", methodCash:"現金", methodBank:"銀行轉帳",
     btnPrint:"🖨 列印", priceMenuSubtitle:"服務項目 · 價目表", priceBookOnline:"線上預約 — naildesk.shop",
     shareTitle:"📱 分享您的價目表", shareDesc:"點選列印可儲存為 PDF 或直接列印。截圖此卡片即可分享至社群。",
-    stitleTodo:"✅ 待辦事項", placeholderTodo:"例如：購買拋棄式濕紙巾", stitleStock:"📦 庫存管理",
+    titleTodo:"✅ 待辦事項", placeholderTodo:"例如：購買拋棄式濕紙巾", titleStock:"📦 庫存管理",
     reorderPrefix:"補貨提醒：", lowStockWarning:"⚠ 庫存不足 — 請盡快補貨",
     titleAddStock:"+ 新增庫存項目", lblItemName:"項目名稱", placeholderItemName:"例如：光療封層油",
     lblQty:"數量", placeholderZero:"0", lblReorderAt:"補貨提醒數量", lblUnit:"單位", btnAddItem:"新增項目",
     unitPcs:"個", unitPacks:"包", unitBottles:"瓶", unitBoxes:"盒", unitSets:"套",
-    stitleSlotLength:"⏱ 預約時段長度",
-    stitleBlockedDates:"🚫 休息日期", btnBlock:"+ 新增休息日",
+    titleSlotLength:"⏱ 預約時段長度",
+    titleBlockedDates:"🚫 休息日期", btnBlock:"+ 新增休息日",
     titleBlockDate:"設定休息日期", lblReason:"原因", btnBlockDate:"確認休息",
-    stitleDeposit:"💰 訂金與銀行資訊", lblRequestDeposit:"需要收取訂金",
+    titleDeposit:"💰 訂金與銀行資訊", lblRequestDeposit:"需要收取訂金",
     lblDepositAmount:"訂金金額 ($)", lblAccountName:"帳戶名稱", lblBsb:"BSB 銀行代碼", lblAccountNo:"帳戶號碼",
     lblCustomMessage:"自訂提示訊息", btnSaveSettings:"儲存設定",
     tabCpa:"📊 商業支援", tabIt:"🛠 技術支援",
@@ -609,7 +609,7 @@ return <Dashboard session={session} />;
   const greeting = hour<12?tr("greetingMorning"):hour<17?tr("greetingAfternoon"):tr("greetingEvening");
 
   // ── SHARED STYLES ─────────────────────────────────────────────────
-  const overlay={position:"fixed",inset:0,background:"rgba(42,24,32,0.5)",zIndex:200,display:"flex",alignItems:"flex-end",justifyContent:"center"};
+  const overlay={position:"fixed",inset:0,background:"rgba(42,24,32,0.5)",zIndex:200,display:"flex",alignItems:"center",justifyContent:"center"};
   const sheet={background:C.card,borderRadius:"18px 18px 0 0",padding:"22px 18px 32px",width:"100%",maxWidth:480,maxHeight:"88vh",overflowY:"auto"};
   const inp={width:"100%",padding:"10px 13px",borderRadius:9,border:`1.5px solid ${C.border}`,fontSize:13,background:C.bg,outline:"none",boxSizing:"border-box",fontFamily:"inherit",color:C.text};
   const btn={background:C.pinkDark,color:"#fff",border:"none",borderRadius:10,padding:"12px 20px",fontSize:13,fontWeight:600,cursor:"pointer",width:"100%"};
@@ -657,8 +657,11 @@ return <Dashboard session={session} />;
     if (blockedDates.find(b=>b.date===dateStr)) return [];
     const booked = BLOCKED_SLOTS[dateStr]||[];
     const slots=[];
-    for(let h=9;h<=18-Math.ceil(dur/slotLength);h++){
-      const t=`${String(h).padStart(2,"0")}:00`;
+    const startMin = 9*60;
+    const endMin = 18*60 - dur;
+    for(let m=startMin;m<=endMin;m+=30){
+      const h=Math.floor(m/60), mm=m%60;
+      const t=`${String(h).padStart(2,"0")}:${String(mm).padStart(2,"0")}`;
       if(!booked.includes(t)) slots.push(t);
     }
     return slots;
@@ -695,7 +698,7 @@ return <Dashboard session={session} />;
         </div>
         <div style={card}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
-            <div style={stitle}>{tr("stitleTodayAppts")}</div>
+            <div style={stitle}>{tr("titleTodayAppts")}</div>
             <button onClick={()=>setScreen("appointments")} style={{...btnSm,background:"transparent",color:C.pinkDark,border:`1px solid ${C.pinkLight}`}}>{tr("btnViewAll")}</button>
           </div>
           {todayAppts.length===0?<div style={{color:C.mute,fontSize:15}}>{tr("apptsEmptyToday")}</div>:todayAppts.map(a=>(
@@ -906,9 +909,8 @@ return <Dashboard session={session} />;
   const renderPrices = () => (
     <div>
       <TopBar title={tr("titlePriceList")} action={
-        <div style={{display:"flex",gap:8}}>
+        <div style={{display:"flex",gap:8,alignSelf:"flex-start"}}>
           <button className="no-print" onClick={()=>setEditingPrices(!editingPrices)} style={{...btnSm,background:editingPrices?C.green:C.pinkDark}}>{editingPrices?tr("btnDonePrices"):tr("btnEditPrices")}</button>
-          <button className="no-print" onClick={()=>window.print()} style={btnSm}>{tr("btnPrint")}</button>
         </div>
       }/>
       <div id="price-card" style={{background:C.card,borderRadius:16,overflow:"hidden",boxShadow:"0 2px 12px rgba(42,33,24,0.10)",marginBottom:12}}>
@@ -957,10 +959,6 @@ return <Dashboard session={session} />;
           <div style={{fontSize:11,fontWeight:600,color:C.pinkDark}}>{tr("priceBookOnline")}</div>
         </div>
       </div>
-      <div className="no-print" style={{...card,background:C.greenLight,border:`1px solid ${C.green}30`}}>
-        <div style={{fontSize:12,fontWeight:700,color:C.green,marginBottom:6}}>{tr("shareTitle")}</div>
-        <div style={{fontSize:12,color:C.text,lineHeight:1.6}}>{tr("shareDesc")}</div>
-      </div>
       {showAddPrice&&(
         <div style={overlay} onClick={()=>setShowAddPrice(false)}>
           <div style={sheet} onClick={e=>e.stopPropagation()}>
@@ -982,7 +980,7 @@ return <Dashboard session={session} />;
     <div>
       <TopBar title={tr("titleTodo")}/>
       <div style={card}>
-        <div style={stitle}>{tr("stitleTodo")}</div>
+        <div style={stitle}>{tr("titleTodo")}</div>
         <div style={{display:"flex",gap:8,marginBottom:12}}>
           <input style={{...inp,flex:1}} placeholder={tr("placeholderTodo")} value={newTodo} onChange={e=>setNewTodo(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&newTodo.trim()){setTodos([...todos,{id:Date.now(),text:newTodo.trim(),done:false}]);setNewTodo("");}}}/>
           <button style={btnSm} onClick={()=>{if(newTodo.trim()){setTodos([...todos,{id:Date.now(),text:newTodo.trim(),done:false}]);setNewTodo("");}}} >+</button>
@@ -1004,7 +1002,7 @@ return <Dashboard session={session} />;
       <TopBar title={tr("titleStock")}/>
       <div style={card}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
-          <div style={stitle}>{tr("stitleStock")}</div>
+          <div style={stitle}>{tr("titleStock")}</div>
           <button onClick={()=>setShowAddStock(true)} style={btnSm}>{tr("btnAdd")}</button>
         </div>
         {stock.map(item=>{
@@ -1047,19 +1045,19 @@ return <Dashboard session={session} />;
     <div>
       <TopBar title={tr("titleSettings")}/>
       <div style={card}>
-        <div style={stitle}>{tr("stitleSlotLength")}</div>
+        <div style={stitle}>{tr("titleSlotLength")}</div>
         <div style={{display:"flex",gap:6,marginBottom:8}}>
           {[15,30,45,60,90].map(v=><button key={v} onClick={()=>setSlotLength(v)} style={{flex:1,padding:"8px 4px",borderRadius:8,border:"none",fontSize:11,fontWeight:600,cursor:"pointer",background:slotLength===v?C.pinkDark:C.pinkLight,color:slotLength===v?"#fff":C.pinkDark}}>{slotLabel(v,lang)}</button>)}
         </div>
       </div>
       <div style={card}>
-        <div style={{display:"flex",justifyContent:"space-between",marginBottom:10}}><div style={stitle}>{tr("stitleBlockedDates")}</div><button onClick={()=>setShowAddBlocked(true)} style={btnSm}>{tr("btnBlock")}</button></div>
+        <div style={{display:"flex",justifyContent:"space-between",marginBottom:10}}><div style={stitle}>{tr("titleBlockedDates")}</div><button onClick={()=>setShowAddBlocked(true)} style={btnSm}>{tr("btnBlock")}</button></div>
         {blockedDates.map(b=>(
           <div key={b.id} style={row}><div><div style={{fontSize:13,fontWeight:600}}>{fmtDateLoc(b.date,lang)}</div><div style={{fontSize:11,color:C.sub}}>{b.reason}</div></div><button onClick={()=>setBlockedDates(blockedDates.filter(bd=>bd.id!==b.id))} style={{background:"none",border:"none",color:C.mute,fontSize:16,cursor:"pointer"}}>×</button></div>
         ))}
       </div>
       <div style={card}>
-        <div style={stitle}>{tr("stitleDeposit")}</div>
+        <div style={stitle}>{tr("titleDeposit")}</div>
         <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:14}}>
           <div onClick={()=>setRequireDeposit(!requireDeposit)} style={{width:38,height:22,borderRadius:12,background:requireDeposit?C.pinkDark:"#E0DADC",position:"relative",cursor:"pointer"}}>
             <div style={{width:18,height:18,borderRadius:"50%",background:"#fff",position:"absolute",top:2,left:requireDeposit?18:2,transition:"left 0.2s"}}/>
