@@ -58,7 +58,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'NailDesk <onboarding@resend.dev>',
+        from: 'NailDesk <hello@naildesk.shop>',
         to: 'account@ollieconsult.com',
         reply_to: clientEmail || 'account@ollieconsult.com',
         subject,
