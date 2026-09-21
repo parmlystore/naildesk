@@ -39,7 +39,7 @@ const DAILY_SLOTS = ['09:00', '10:30', '12:00', '14:00', '15:30', '17:00'];
 
 useEffect(() => {
 (async () => {
-const { data: studioRow } = await supabase.from('studios').select('*').eq('booking_slug', slug).maybeSingle();
+const { data: studioRow } = await supabase.from('studios').select('id, name').eq('booking_slug', slug).maybeSingle();
 if (!studioRow) { setNotFound(true); setLoading(false); return; }
 setStudio(studioRow);
 const [{ data: svc }, { data: bs }] = await Promise.all([
