@@ -4,6 +4,7 @@ import { supabase } from './supabaseClient.js';
 const NAV = [
 { key: 'overview', label: 'Dashboard' },
 { key: 'bookings', label: 'Bookings' },
+{ key: 'bookingsettings', label: 'Booking Settings' },
 { key: 'clients', label: 'Clients' },
 { key: 'finance', label: 'Income & Expenses' },
 { key: 'pricelist', label: 'Price list' },
@@ -49,7 +50,7 @@ return (
 <nav className="sidebar">
 <div className="brand">{studio.name}<span style={{color:'var(--pink-dark)'}}>.</span></div>
 <span className="brand-sub">Powered by NailDesk</span>
-{NAV.map(item => (
+{NAV.filter(item => studio.tier !== 'basic' || item.key !== 'bookingsettings').map(item => (
 <div key={item.key} className={'nav-item' + (page === item.key ? ' active' : '')} onClick={() => setPage(item.key)}>
 <span className="nav-dot"></span>{item.label}
 </div>
@@ -61,6 +62,7 @@ return (
 <div className="main">
 {page === 'overview' && <Overview studio={studio} />}
 {page === 'bookings' && <Bookings studio={studio} />}
+{page === 'bookingsettings' && <BookingSettings studio={studio} />}
 {page === 'clients' && <Clients studio={studio} />}
 {page === 'finance' && <Finance studio={studio} />}
 {page === 'pricelist' && <PriceList studio={studio} />}
@@ -234,7 +236,7 @@ return (
 </div>
 <div className="stat-grid">
 <div className="stat"><div className="num">{stats.todayBookings}</div><div className="lbl">Bookings today</div></div>
-<div className="stat"><div className="num">$" + "{stats.monthNet.toFixed(0)}</div><div className="lbl">Net this month</div></div>
+<div className="stat"><div className="num">${stats.monthNet.toFixed(0)}</div><div className="lbl">Net this month</div></div>
 <div className="stat"><div className="num">{stats.lowStock}</div><div className="lbl">Low stock items</div></div>
 <div className="stat"><div className="num">{stats.openTodos}</div><div className="lbl">Open to-dos</div></div>
 </div>
@@ -250,6 +252,7 @@ return (
 
 function Bookings({ studio }) {
 const [rows, setRows] = useState([]);
+const [linkCopied, setLinkCopied] = useState(false);
 useEffect(() => {
 (async () => {
 const { data } = await supabase.from('appointments').select('*').eq('studio_id', studio.id).order('appointment_date', { ascending: false }).order('appointment_time');
@@ -258,16 +261,151 @@ setRows(data || []);
 }, [studio]);
 return (
 <>
-<div className="page-head"><span className="eyebrow">Bookings</span><h1>Upcoming &amp; past appointments</h1></div>
+<div className="page-head" style={{display:'flex', justifyContent:'space-between', alignItems:'flex-start'}}>
+<div><span className="eyebrow">Bookings</span><h1>Upcoming &amp; past appointments</h1></div>
+{studio.tier === 'basic' ? (
+<span className="sub" style={{fontSize:'0.8rem'}}>Online booking is a Pro feature — upgrade to get your booking link.</span>
+) : (
+<button className="btn btn-outline" onClick={() => { navigator.clipboard.writeText(`https://app.naildesk.shop/book/${studio.booking_slug}`); setLinkCopied(true); setTimeout(() => setLinkCopied(false), 2000); }}>🔗 {linkCopied ? 'Copied!' : 'Booking Link'}</button>
+)}
+</div>
 <table>
 <thead><tr><th>Date</th><th>Time</th><th>Service</th><th>Client</th><th>Price</th><th>Status</th></tr></thead>
 <tbody>
 {rows.map(r => (
-<tr key={r.id}><td>{r.appointment_date}</td><td>{r.appointment_time}</td><td>{r.service_name}</td><td>{r.client_name}</td><td>$" + "{Number(r.price).toFixed(0)}</td><td>{r.status}</td></tr>
+<tr key={r.id}><td>{r.appointment_date}</td><td>{r.appointment_time}</td><td>{r.service_name}</td><td>{r.client_name}</td><td>${Number(r.price).toFixed(0)}</td><td>{r.status}</td></tr>
 ))}
 {rows.length === 0 && <tr><td colSpan={6}>No bookings yet.</td></tr>}
 </tbody>
 </table>
+</>
+);
+}
+
+function BookingSettings({ studio }) {
+const [settings, setSettings] = useState(null);
+const [blocked, setBlocked] = useState([]);
+const [showAddBlock, setShowAddBlock] = useState(false);
+const [newBlockDate, setNewBlockDate] = useState('');
+const [newBlockNote, setNewBlockNote] = useState('Closed');
+const [depositAmt, setDepositAmt] = useState('');
+const [bankName, setBankName] = useState('');
+const [bankBsb, setBankBsb] = useState('');
+const [bankAccount, setBankAccount] = useState('');
+const [customMessage, setCustomMessage] = useState('');
+
+async function load() {
+const { data: bs } = await supabase.from('booking_settings').select('*').eq('studio_id', studio.id).maybeSingle();
+setSettings(bs || { studio_id: studio.id });
+setDepositAmt(bs?.deposit_amount || '');
+setBankName(bs?.bank_account_name || '');
+setBankBsb(bs?.bank_bsb || '');
+setBankAccount(bs?.bank_account_number || '');
+setCustomMessage(bs?.custom_message || '');
+const { data: bd } = await supabase.from('blocked_dates').select('*').eq('studio_id', studio.id).order('date');
+setBlocked(bd || []);
+}
+useEffect(() => { load(); }, [studio]);
+
+async function save(patch) {
+await supabase.from('booking_settings').upsert({ studio_id: studio.id, ...patch }, { onConflict: 'studio_id' });
+load();
+}
+function saveDepositFields() {
+save({
+deposit_amount: depositAmt === '' ? 0 : Number(depositAmt),
+bank_account_name: bankName || null,
+bank_bsb: bankBsb || null,
+bank_account_number: bankAccount || null,
+custom_message: customMessage || null,
+});
+}
+function toggleDeposit() {
+const next = !settings.require_deposit;
+save({ require_deposit: next, deposit_amount: next ? (Number(depositAmt) || 15) : (settings.deposit_amount || 0) });
+}
+
+async function confirmAddBlocked() {
+if (!newBlockDate) return;
+await supabase.from('blocked_dates').insert({ studio_id: studio.id, date: newBlockDate, reason: newBlockNote || 'Closed', all_day: true });
+setNewBlockDate(''); setNewBlockNote('Closed'); setShowAddBlock(false);
+load();
+}
+async function removeBlocked(id) {
+await supabase.from('blocked_dates').delete().eq('id', id);
+load();
+}
+function formatDate(iso) {
+const d = new Date(iso + 'T00:00:00');
+if (isNaN(d)) return iso;
+return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+if (!settings) return null;
+const depositOn = !!settings.require_deposit;
+const slotOptions = [15, 30, 45, 60, 90];
+const slotLabels = { 15: '15m', 30: '30m', 45: '45m', 60: '1hr', 90: '1h30' };
+const currentSlot = settings.slot_length_mins || 30;
+
+return (
+<>
+<div className="page-head"><span className="eyebrow">Booking Settings</span><h1>Configure how clients book</h1></div>
+
+<div className="settings-card">
+<div className="settings-card-head">⏱ Time slot length</div>
+<div className="slot-options">
+{slotOptions.map(opt => (
+<button key={opt} className={'slot-pill' + (currentSlot === opt ? ' selected' : '')} onClick={() => save({ slot_length_mins: opt })}>{slotLabels[opt]}</button>
+))}
+</div>
+</div>
+
+<div className="settings-card">
+<div className="settings-card-head-row">
+<span className="settings-card-head" style={{marginBottom:0}}>🚫 Blocked dates</span>
+<button className="btn btn-solid btn-sm" onClick={() => setShowAddBlock(true)}>+ Block</button>
+</div>
+{showAddBlock && (
+<div className="manual-form">
+<div className="two-col">
+<div className="field"><label>Date</label><input type="date" value={newBlockDate} onChange={e => setNewBlockDate(e.target.value)} /></div>
+<div className="field"><label>Reason (optional)</label><input type="text" value={newBlockNote} onChange={e => setNewBlockNote(e.target.value)} placeholder="e.g. Holiday" /></div>
+</div>
+<div style={{display:'flex', gap:10, justifyContent:'flex-end'}}>
+<button className="btn btn-outline" onClick={() => { setShowAddBlock(false); setNewBlockDate(''); }}>Cancel</button>
+<button className="btn btn-solid" disabled={!newBlockDate} onClick={confirmAddBlocked}>Add blocked date</button>
+</div>
+</div>
+)}
+{blocked.map(b => (
+<div className="blocked-row" key={b.id}>
+<div><strong>{formatDate(b.date)}</strong><div className="blocked-note">{b.reason}</div></div>
+<button className="icon-btn" onClick={() => removeBlocked(b.id)} title="Remove">×</button>
+</div>
+))}
+{blocked.length === 0 && <p className="sub" style={{margin:0}}>No blocked dates.</p>}
+</div>
+
+<div className="settings-card">
+<div className="settings-card-head">💰 Deposit &amp; bank details</div>
+<label className="toggle-row">
+<span className={'toggle-switch' + (depositOn ? ' on' : '')} onClick={toggleDeposit}>
+<span className="toggle-knob"></span>
+</span>
+Request a deposit
+</label>
+{depositOn && (
+<div>
+<div className="field"><label>Deposit amount ($)</label><input type="number" value={depositAmt} onChange={e => setDepositAmt(e.target.value)} onBlur={saveDepositFields} /></div>
+<div className="field"><label>Account name</label><input value={bankName} onChange={e => setBankName(e.target.value)} onBlur={saveDepositFields} /></div>
+<div className="two-col">
+<div className="field"><label>BSB</label><input value={bankBsb} onChange={e => setBankBsb(e.target.value)} onBlur={saveDepositFields} /></div>
+<div className="field"><label>Account No.</label><input value={bankAccount} onChange={e => setBankAccount(e.target.value)} onBlur={saveDepositFields} /></div>
+</div>
+<div className="field"><label>Custom message</label><textarea rows="2" value={customMessage} onChange={e => setCustomMessage(e.target.value)} onBlur={saveDepositFields} /></div>
+</div>
+)}
+</div>
 </>
 );
 }
@@ -349,12 +487,12 @@ return (
 <tbody>
 {rows.map((r, i) => (
 <tr key={i}><td>{new Date(r.date).toLocaleDateString('en-AU')}</td><td>{r.label}</td>
-<td className={r.kind === 'income' ? 'amt-in' : 'amt-out'}>{r.kind === 'income' ? '+' : '−'}$" + "{Number(r.amount).toFixed(0)}</td></tr>
+<td className={r.kind === 'income' ? 'amt-in' : 'amt-out'}>{r.kind === 'income' ? '+' : '−'}${Number(r.amount).toFixed(0)}</td></tr>
 ))}
 </tbody>
 </table>
 <div className="stat-grid" style={{marginTop:18, marginBottom:0}}>
-<div className="stat"><div className="num">$" + "{total.toFixed(0)}</div><div className="lbl">Net total</div></div>
+<div className="stat"><div className="num">${total.toFixed(0)}</div><div className="lbl">Net total</div></div>
 </div>
 </>
 );
@@ -394,7 +532,7 @@ return (
 {rows.map(r => (
 <div className="price-row" key={r.id}>
 <div><div className="pname">{r.name}</div>{r.duration_mins && <span className="pmeta">{r.duration_mins} min</span>}</div>
-<div className="pval">$" + "{Number(r.price).toFixed(0)}</div>
+<div className="pval">${Number(r.price).toFixed(0)}</div>
 </div>
 ))}
 {rows.length === 0 && <p className="sub">No services yet — add one above.</p>}
