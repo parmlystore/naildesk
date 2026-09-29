@@ -14,6 +14,19 @@ return out;
 function fmtDate(d) { return d.toISOString().slice(0, 10); }
 function dayLabel(d) { return d.toLocaleDateString('en-AU', { weekday: 'short' }).toUpperCase(); }
 function dayNum(d) { return d.getDate(); }
+function generateSlots(mins) {
+const stepMins = mins || 30;
+const out = [];
+let cur = 9 * 60;
+const end = 18 * 60;
+while (cur < end) {
+const h = Math.floor(cur / 60);
+const m = cur % 60;
+out.push(String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0'));
+cur += stepMins;
+}
+return out;
+}
 
 export default function Booking({ slug }) {
 const [loading, setLoading] = useState(true);
@@ -21,10 +34,10 @@ const [notFound, setNotFound] = useState(false);
 const [studio, setStudio] = useState(null);
 const [services, setServices] = useState([]);
 const [settings, setSettings] = useState(null);
+const [blockedDates, setBlockedDates] = useState([]);
 
 const [step, setStep] = useState(1);
 const [service, setService] = useState(null);
-const dates = nextDays(7);
 const [dateIdx, setDateIdx] = useState(0);
 const [takenSlots, setTakenSlots] = useState([]);
 const [slot, setSlot] = useState(null);
@@ -35,19 +48,23 @@ const [submitting, setSubmitting] = useState(false);
 const [submitError, setSubmitError] = useState('');
 const [confirmed, setConfirmed] = useState(null);
 
-const DAILY_SLOTS = ['09:00', '10:30', '12:00', '14:00', '15:30', '17:00'];
+const blockedSet = new Set(blockedDates.filter(x => x.all_day !== false).map(x => x.date));
+const dates = nextDays(21).filter(d => !blockedSet.has(fmtDate(d))).slice(0, 7);
+const DAILY_SLOTS = generateSlots(settings?.slot_length_mins);
 
 useEffect(() => {
 (async () => {
-const { data: studioRow } = await supabase.from('studios').select('id, name').eq('booking_slug', slug).maybeSingle();
+const { data: studioRow } = await supabase.from('studios').select('id, name, tier').eq('booking_slug', slug).maybeSingle();
 if (!studioRow) { setNotFound(true); setLoading(false); return; }
 setStudio(studioRow);
-const [{ data: svc }, { data: bs }] = await Promise.all([
+const [{ data: svc }, { data: bs }, { data: bd }] = await Promise.all([
 supabase.from('services').select('*').eq('studio_id', studioRow.id).eq('active', true).order('created_at'),
 supabase.from('booking_settings').select('*').eq('studio_id', studioRow.id).maybeSingle(),
+supabase.from('blocked_dates').select('date, all_day').eq('studio_id', studioRow.id),
 ]);
 setServices(svc || []);
 setSettings(bs || null);
+setBlockedDates(bd || []);
 setLoading(false);
 })();
 }, [slug]);
@@ -57,7 +74,7 @@ if (studio) document.title = studio.name;
 }, [studio]);
 
 useEffect(() => {
-if (!studio) return;
+if (!studio || dates.length === 0) return;
 (async () => {
 const dateStr = fmtDate(dates[dateIdx]);
 const { data } = await supabase.from('appointments')
@@ -107,6 +124,7 @@ setStep(4);
 
 if (loading) return <div className="login-shell">Loading…</div>;
 if (notFound) return <div className="login-shell"><div className="login-card center"><h1>Studio not found</h1><p className="sub">This booking link doesn't match any studio.</p></div></div>;
+if (studio.tier === 'basic') return <div className="login-shell"><div className="login-card center"><h1>Online booking not available</h1><p className="sub">This studio takes bookings by phone or in person.</p></div></div>;
 
 return (
 <div>
@@ -187,6 +205,7 @@ onClick={() => !isFull && setSlot(t)}>
 <div style={{background:'var(--amber-light)', color:'var(--amber)', fontSize:'0.85rem', padding:'12px 14px', borderRadius:5, marginBottom:16}}>
 <strong>Deposit — ${Number(settings.deposit_amount).toFixed(0)}</strong><br/>
 Transfer to {settings.bank_account_name} · BSB {settings.bank_bsb} · Acc {settings.bank_account_number} · Reference: your name.
+{settings.custom_message && <><br/>{settings.custom_message}</>}
 </div>
 )}
 {submitError && <div className="error-msg">{submitError}</div>}
